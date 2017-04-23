@@ -1,5 +1,5 @@
 # Deck
-currentDeck = "Medicine::Neuro"
+currentDeck = "Medicine::Endocrine"
 
 # Import the main window object (mw) from aqt
 from aqt import mw
@@ -12,48 +12,25 @@ from anki.importing import TextImporter
 
 def importFlashcards():
 
-    # Select deck
-    did = mw.col.decks.id(currentDeck)
-    mw.col.decks.select(did)
+    # Import cards
+    for notetype in ['Basic', 'Cloze', 'Definition']:
 
-    # Import basic cards
-    basicf = os.path.expanduser("~/tmp/basic.csv")
-    # Set note type
-    m = mw.col.models.byName("Basic")
-    # Set note type for deck
-    deck = mw.col.decks.get(did)
-    deck['mid'] = m['id']
-    mw.col.decks.save(deck)
-    # Import into the collection
-    ti = TextImporter(mw.col, basicf)
-    ti.initMapping()
-    ti.run()
-
-    # Import definition cards
-    basicf = os.path.expanduser("~/tmp/definition.csv")
-    # Set note type
-    m = mw.col.models.byName("Definition")
-    # Set note type for deck
-    deck = mw.col.decks.get(did)
-    deck['mid'] = m['id']
-    mw.col.decks.save(deck)
-    # Import into the collection
-    ti = TextImporter(mw.col, basicf)
-    ti.initMapping()
-    ti.run()
-
-    # Import cloze cards
-    basicf = os.path.expanduser("~/tmp/cloze.csv")
-    # Set note type
-    m = mw.col.models.byName("Cloze")
-    # Set note type for deck
-    deck = mw.col.decks.get(did)
-    deck['mid'] = m['id']
-    mw.col.decks.save(deck)
-    # Import into the collection
-    ti = TextImporter(mw.col, basicf)
-    ti.initMapping()
-    ti.run()
+        filename = os.path.expanduser("~/tmp/" + notetype.lower() + ".csv")
+        linecount = sum(1 for line in open(filename))
+        if linecount > 1:
+            # Select deck
+            did = mw.col.decks.id(currentDeck)
+            mw.col.decks.select(did)
+            # Set note type
+            m = mw.col.models.byName(notetype)
+            # Set note type for deck
+            deck = mw.col.decks.get(did)
+            deck['mid'] = m['id']
+            mw.col.decks.save(deck)
+            # Import into the collection
+            ti = TextImporter(mw.col, filename)
+            ti.initMapping()
+            ti.run()
 
     showInfo("Import complete")
 
