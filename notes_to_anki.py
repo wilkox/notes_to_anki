@@ -29,6 +29,7 @@ def importFlashcards():
             mw.col.decks.save(deck)
             # Import into the collection
             ti = TextImporter(mw.col, filename)
+            ti.allowHTML = True
             ti.initMapping()
             ti.run()
 
