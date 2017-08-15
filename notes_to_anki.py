@@ -1,5 +1,5 @@
 # Deck
-currentDeck = "Medicine::Endocrine"
+currentDeck = "Medicine::Gastrointestinal"
 
 # Import the main window object (mw) from aqt
 from aqt import mw
