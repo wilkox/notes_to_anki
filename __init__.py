@@ -1,5 +1,8 @@
+# TO INSTALL: symlink the repository directory into
+# /Users/wilkox/Library/Application Support/Anki2/addons21
+# (or equivalent for current version)
 # Deck
-currentDeck = "PWH"
+currentDeck = "Med 4"
 
 # Import the main window object (mw) from aqt
 from aqt import mw
